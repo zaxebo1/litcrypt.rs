@@ -1,3 +1,4 @@
+#![feature(proc_macro_span)]
 //! # LitCrypt
 //! The name is an abbreviation of ‘Literal Encryption’ – a Rust compiler plugin to encrypt
 //! text literals using the [XOR cipher](https://en.wikipedia.org/wiki/XOR_cipher).
@@ -65,11 +66,12 @@ extern crate quote;
 #[macro_use(expect)]
 extern crate expectest;
 
-use proc_macro::{TokenStream, TokenTree};
+use proc_macro::{Span, TokenStream, TokenTree};
 use proc_macro2::Literal;
 use rand::{rngs::OsRng, RngCore};
 use quote::quote;
 use std::env;
+use std::path::Path;
 
 mod xor;
 
@@ -84,7 +86,7 @@ lazy_static::lazy_static! {
 #[inline(always)]
 fn get_magic_spell() -> Vec<u8> {
     match env::var("LITCRYPT_ENCRYPT_KEY") {
-        Ok(key) => {key.as_bytes().to_vec()},
+        Ok(key) => { key.as_bytes().to_vec() }
         Err(_) => {
             // `lc!` will call this function multi times
             // we must provide exact same result for each invocation
@@ -184,7 +186,7 @@ pub fn lc(tokens: TokenStream) -> TokenStream {
         }
     }
     something = String::from(&something[1..something.len() - 1]);
-    
+
     encrypt_string(something)
 }
 
@@ -203,6 +205,27 @@ pub fn lc_env(tokens: TokenStream) -> TokenStream {
     var_name = String::from(&var_name[1..var_name.len() - 1]);
 
     encrypt_string(env::var(var_name).unwrap_or(String::from("unknown")))
+}
+
+#[proc_macro]
+pub fn lc_file(tokens: TokenStream) -> TokenStream {
+    let mut content = String::from("");
+    for tok in tokens {
+        content = match tok {
+            TokenTree::Literal(lit) => {
+                let path = lit.to_string();
+                let path = String::from(&path[1..path.len() - 1]);
+                let span = Span::call_site();
+                let source = span.source_file();
+                let path = source.path().parent().unwrap_or(Path::new("")).join(path);
+                let msg = format!("The file {} not found", path.display());
+                std::fs::read_to_string(path).expect(msg.as_str())
+            }
+            _ => "<unknown>".to_owned(),
+        };
+        break;
+    }
+    encrypt_string(content)
 }
 
 fn encrypt_string(something: String) -> TokenStream {
