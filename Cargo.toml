@@ -20,3 +20,4 @@ quote = "1.0.8"
 proc-macro2 = "1.0.24"
 rand = "0.8.5"
 lazy_static = "^1.4.0"
+syn = { version = "2.0.39", features = [] }
