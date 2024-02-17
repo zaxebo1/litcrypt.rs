@@ -1,10 +1,10 @@
 [package]
-name = "litcrypt2"
-authors = ['Robin Syihab (r@ansvia.com)', 'Kurosh Dabbagh Escalante (@_Kudaes_)']
-version = "0.1.1"
+name = "litcrypt3"
+authors = ['Robin Syihab (r@ansvia.com)', 'Kurosh Dabbagh Escalante (@_Kudaes_)','ehuff700','zaxebo1']
+version = "0.4.1"
 description = "Let's encrypt your string statically during compile time"
 license = "Apache-2.0"
-repository = "https://github.com/Kudaes/litcrypt.rs"
+repository = "https://github.com/zaxebo1/litcrypt.rs"
 readme = "README.md"
 keywords = ["litcrypt", "encrypt", "obfuscation"]
 
