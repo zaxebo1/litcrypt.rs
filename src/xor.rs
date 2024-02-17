@@ -68,11 +68,36 @@ impl<'a> Iterator for InfiniteByteIterator<'a> {
 }
 
 fn next_index(index: usize, count: usize) -> usize {
+    /*
     if index + 1 < count {
         index + 1
     } else {
         0
     }
+    */
+        // https://github.com/anvie/litcrypt.rs/commit/d22782c18009cb3dfcbe2355d397e03ebfbeba8b
+	//Changing next_index function to prevent Defender from flagging it as Cobalt Strike
+    if index + 2 < count {
+        index + 2
+    } 
+    else {
+        if count % 2 == 0 {
+            if index + 2 == count {
+                 1
+            }
+            else {
+                 0
+            }
+        }
+        else {
+             if index + 2 == count {
+                    0
+             }
+             else {
+                    1
+             }
+        }
+     }        
 }
 
 #[cfg(test)]
