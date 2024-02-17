@@ -7,7 +7,8 @@ https://github.com/lfern/litcrypt.rs
 https://github.com/soloist-v/litcrypt.rs
 
 ==================
-This crate is just a maintained and updated fork of the 
+
+This crate is just a maintained and updated fork of the: 
 original crate, LITCRYPT by Robin Syihab (r@ansvia.com) ( https://github.com/anvie/litcrypt.rs ) = complete sync as on 17 Feb 2024
 
 with merges from 
