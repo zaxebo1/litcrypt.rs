@@ -1,11 +1,13 @@
-LITCRYPT2 
+LITCRYPT3
 ===========
 
 It's a short name of "Literal Encryption", a Rust proc macro that encrypts text using a basic XOR method. It protect plain text from static analysis tools and helps keep your important app safe from cracking activity.
 
 LITCRYPT2 encrypts strings when compiling, keeping them encrypted in both disk and memory while running, and only decrypting them when needed.
 
-This crate is just a maintained and updated fork of the original crate, **LITCRYPT** by **Robin Syihab (r@ansvia.com)**.
+This crate is just a maintained and updated fork of the original crate, **LITCRYPT** by **Robin Syihab (r@ansvia.com)** ( https://github.com/anvie/litcrypt.rs ) with merges from https://github.com/Kudaes/litcrypt.rs and https://github.com/ehuff700/litcrypt.rs .
+
+
 
 USAGE
 -----
@@ -14,7 +16,7 @@ Dependencies:
 
 ```rust
 [dependencies]
-litcrypt2 = "0.1"
+litcrypt3 = "0.4.1"
 ```
 
 Example:
